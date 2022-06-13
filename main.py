@@ -1,5 +1,7 @@
 import pygame
 
+#Comentário feito
+
 WIN = pygame.display.set_mode((300,300))
 
 def draw_window(spaceship):
@@ -17,7 +19,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
         spaceship.y = spaceship.y-1
-        spaceship.x = spaceship.x-1
+        spaceship.x = spaceship.x^2-1
         draw_window(spaceship)
     pygame.quit()
 
