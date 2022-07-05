@@ -1,7 +1,12 @@
+import random
 import pygame
 import os
 
+pygame.font.init()
+
 SIZE = 650
+
+FONT = pygame.font.SysFont('comicsans', SIZE//10)
 
 WIN = pygame.display.set_mode((SIZE,SIZE))
 
@@ -12,7 +17,7 @@ SPACE_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join('Assets','sp
 SPACESHIP_WIDTH = SIZE//15
 SPACESHIP_HEIGHT = SIZE//15
 SPACESHIP_INITIAL_POSITION_X = (SIZE//2) - (SPACESHIP_WIDTH//2)
-SPACESHIP_INITIAL_POSITION_Y = (SIZE//2) - (SPACESHIP_HEIGHT//2)
+SPACESHIP_INITIAL_POSITION_Y = (SIZE//1.1) - (SPACESHIP_HEIGHT//2)
 SPACESHIP_SPEED = SIZE//125
 SPACESHIP_IMAGE = pygame.image.load(os.path.join('Assets','spaceship.png'))
 SPACESHIP_SCALED = pygame.transform.scale(SPACESHIP_IMAGE,(SPACESHIP_WIDTH,SPACESHIP_HEIGHT))
@@ -22,22 +27,28 @@ BULLET_WIDTH = SIZE//120
 BULLET_HEIGHT = SIZE//60
 BULLET_SPEED = SIZE//55
 
-ALIEN_WIDTH = SIZE//30
-ALIEN_HEIGHT = SIZE//30
+ALIEN_WIDTH = SIZE//25
+ALIEN_HEIGHT = SIZE//25
 ALIEN_SPEED = SIZE//240
+ALIEN_IMAGE = pygame.image.load(os.path.join('Assets','alien.png'))
+ALIEN = pygame.transform.scale(ALIEN_IMAGE,(ALIEN_WIDTH,ALIEN_HEIGHT))
+#ALIEN = pygame.transform.rotate(ALIEN_SCALED,180)
 
 #RGB (red green blue)
 WHITE = (255,255,255)
 RED = (255,0,0)
 BLACK = (0,0,0)
 
-def draw_window(spaceship, bullets, aliens):
+def draw_window(spaceship, bullets, aliens, life):
     WIN.blit(SPACE_IMAGE,(0,0))
     WIN.blit(SPACESHIP,(spaceship.x,spaceship.y))
     for alien in aliens:
-        pygame.draw.rect(WIN, BLACK, alien)
+        WIN.blit(ALIEN, (alien.x,alien.y))
     for bullet in bullets:
         pygame.draw.rect(WIN, RED, bullet)
+    if life <= 0:
+        final_text = FONT.render('You lose!',1,WHITE)
+        WIN.blit(final_text, (SIZE//2 - final_text.get_width()//2, SIZE//1.5))
     pygame.display.update()
 
 def move_spaceship(spaceship):
@@ -51,12 +62,17 @@ def move_spaceship(spaceship):
     if key_pressed[pygame.K_RIGHT] and spaceship.x < SIZE - SPACESHIP_WIDTH:
         spaceship.x = spaceship.x+SPACESHIP_SPEED
     
+def new_alien():
+    return pygame.Rect(SIZE-random.randint(ALIEN_WIDTH,SIZE), 0,ALIEN_WIDTH,ALIEN_HEIGHT)
+
+
 def main():
     clock = pygame.time.Clock()    
     run = True
     spaceship = pygame.Rect(SPACESHIP_INITIAL_POSITION_X, SPACESHIP_INITIAL_POSITION_Y,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
     bullets = []
-    aliens = [pygame.Rect(SIZE//3, 0,ALIEN_WIDTH,ALIEN_HEIGHT)]
+    aliens = []
+    life = 3
     while run:
         clock.tick(FPS)
         for event in pygame.event.get(): #traz todos os eventos que ocorreram antes dessa linha
@@ -70,12 +86,25 @@ def main():
             if bullet.y < 0:
                 bullets.remove(bullet)
             bullet.y = bullet.y - BULLET_SPEED
-        
-        for alien in aliens:
-            if alien.y > SIZE:
-                aliens.remove(alien) 
+
+        for alien in aliens:                                       
             alien.y = alien.y + ALIEN_SPEED
-        draw_window(spaceship, bullets, aliens)
+            if alien.y > SIZE:                               
+                aliens.remove(alien)
+                life = life-1
+
+        if random.randint(1,100) == 1:
+            aliens.append (new_alien())
+
+        for alien in aliens:
+            for bullet in bullets:
+                if bullet.colliderect(alien):
+                    aliens.remove(alien)
+                    bullets.remove(bullet)
+            if spaceship.colliderect(alien):
+                life = life-1
+              
+        draw_window(spaceship, bullets, aliens, life)
         
     pygame.quit()
 
