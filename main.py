@@ -16,6 +16,8 @@ WIN = pygame.display.set_mode((SIZE,SIZE))
 
 FPS = 60
 
+SPACESHIP_LIFE = 3
+
 SPACE_IMAGE = pygame.transform.scale(pygame.image.load(os.path.join('Assets','space.png')),(SIZE,SIZE))
 
 SPACESHIP_WIDTH = SIZE//15
@@ -88,7 +90,7 @@ def main():
     spaceship = pygame.Rect(SPACESHIP_INITIAL_POSITION_X, SPACESHIP_INITIAL_POSITION_Y,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
     bullets = []
     aliens = []
-    life = 3
+    life = SPACESHIP_LIFE
     while run:
         clock.tick(FPS)
         for event in pygame.event.get(): #traz todos os eventos que ocorreram antes dessa linha
@@ -103,7 +105,7 @@ def main():
                     spaceship = pygame.Rect(SPACESHIP_INITIAL_POSITION_X, SPACESHIP_INITIAL_POSITION_Y,SPACESHIP_WIDTH,SPACESHIP_HEIGHT)
                     bullets = []
                     aliens = []
-                    life = 3
+                    life = SPACESHIP_LIFE
                 if event.key == pygame.K_ESCAPE:
                     run = False
 
