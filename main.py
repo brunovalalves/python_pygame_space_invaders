@@ -1,4 +1,3 @@
-from ast import IsNot
 import random
 import time
 import pygame
@@ -61,7 +60,6 @@ def draw_window(spaceship, bullets, aliens, life, total_time):
         restart = FONT_SMALL.render('Press Enter to restart or Esc to quit',1,WHITE)
         WIN.blit(restart, (SIZE//2 - restart.get_width()//2, SIZE//35 + final_text.get_height()+SIZE//2.5))
         
-
     pygame.display.update()
 
 def stop_clockwatch(initial_time):
@@ -80,7 +78,6 @@ def move_spaceship(spaceship):
     
 def new_alien():
     return pygame.Rect(SIZE-random.randint(ALIEN_WIDTH,SIZE), 0,ALIEN_WIDTH,ALIEN_HEIGHT)
-
 
 def main():
     clock = pygame.time.Clock()    
