@@ -7,10 +7,9 @@ pygame.font.init()
 
 SIZE = 650
 
-FONT_BIG = pygame.font.SysFont('comicsans', SIZE//10)
+FONT_BIG = pygame.font.SysFont('comisans', SIZE//20)
 
-FONT_SMALL = pygame.font.SysFont('comicsans', SIZE//20)
-
+FONT_SMALL = pygame.font.SysFont('comicsans', SIZE//40)
 WIN = pygame.display.set_mode((SIZE,SIZE))
 
 FPS = 60
