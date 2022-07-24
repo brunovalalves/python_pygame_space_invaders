@@ -19,3 +19,5 @@ By the end of the game, you will get you time surviving in the journey. Compare 
 ## Mechanics
 * Move: arrows
 * Shoot: spacebar
+
+![Game]([https://myoctocat.com/assets/images/base-octocat.svg](https://github.com/brunovalalves/python_pygame_space_invaders/blob/main/Assets/Marketing.png)
