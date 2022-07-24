@@ -20,4 +20,4 @@ By the end of the game, you will get you time surviving in the journey. Compare 
 * Move: arrows
 * Shoot: spacebar
 
-![Game]([https://github.com/brunovalalves/python_pygame_space_invaders/blob/main/Assets/Marketing.png])
+![Game](https://github.com/brunovalalves/python_pygame_space_invaders/blob/main/Assets/Marketing.png)
