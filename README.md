@@ -1,4 +1,6 @@
-Developed by Bruno Valério (https://www.linkedin.com/in/brunovalerioalves/) and Cleto May
+Developed by 
+* Bruno Valério (https://www.linkedin.com/in/brunovalerioalves/)
+* Cleto May
 
 # Space Invaders
 Welcome! Read the instructions to a better journey ;)
