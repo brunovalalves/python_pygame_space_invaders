@@ -15,5 +15,5 @@ You will start with 3 lives, and lose when you get to 0. You have two ways to lo
 By the end of the game, you will get you time surviving in the journey. Compare it with your friends and the best is the one who lasts longer!
 
 ## Mechanics
-Move: arrows
-Shoot: spacebar
+* Move: arrows
+* Shoot: spacebar
