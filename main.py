@@ -4,6 +4,7 @@ import pygame
 import os
 
 pygame.font.init()
+pygame.mixer.init()
 
 SIZE = 650
 
@@ -31,11 +32,15 @@ BULLET_WIDTH = SIZE//120
 BULLET_HEIGHT = SIZE//60
 BULLET_SPEED = SIZE//55
 
+BULLET_SOUND = pygame.mixer.Sound(os.path.join('Assets','bullet.wav'))
+
 ALIEN_WIDTH = SIZE//25
 ALIEN_HEIGHT = SIZE//25
 ALIEN_SPEED = SIZE//240
 ALIEN_IMAGE = pygame.image.load(os.path.join('Assets','alien.png'))
 ALIEN = pygame.transform.scale(ALIEN_IMAGE,(ALIEN_WIDTH,ALIEN_HEIGHT))
+
+HIT_SOUND = pygame.mixer.Sound(os.path.join('Assets','hit.wav'))
 
 #RGB (red green blue)
 WHITE = (255,255,255)
@@ -94,6 +99,7 @@ def main():
                 run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and len(bullets) < 3:
+                    BULLET_SOUND.play()
                     bullets.append (pygame.Rect(spaceship.x + (SPACESHIP_WIDTH // 2) - (BULLET_WIDTH // 2) , spaceship.y - BULLET_HEIGHT, BULLET_WIDTH, BULLET_HEIGHT))              
                 if event.key == pygame.K_RETURN and life<=0:                    
                     initial_time = time.time()
@@ -123,9 +129,11 @@ def main():
         for alien in aliens:
             for bullet in bullets:
                 if bullet.colliderect(alien):
+                    HIT_SOUND.play()
                     aliens.remove(alien)
                     bullets.remove(bullet)
             if spaceship.colliderect(alien):
+                HIT_SOUND.play()
                 aliens.remove(alien)
                 life = life-1
 
